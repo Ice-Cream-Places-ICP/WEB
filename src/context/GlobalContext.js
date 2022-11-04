@@ -6,7 +6,8 @@ export const GlobalContext = createContext();
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(globalReducer, {
     global: {
-      isMobile: "true",
+      isMobile: false,
+      isLoading: true,
     },
   });
 

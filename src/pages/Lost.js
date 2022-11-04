@@ -1,5 +1,7 @@
-import { Typography, Link as MuiLink } from "@mui/material";
 import { Link } from "react-router-dom";
+
+// MUI
+import { Typography, Link as MuiLink } from "@mui/material";
 
 const Lost = () => {
   return (

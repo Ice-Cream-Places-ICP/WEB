@@ -1,19 +1,53 @@
-import RegisterForm from "../components/RegisterForm";
-import Loading from "../components/Loading";
-import RegisterOk from "../components/RegisterOk";
+import { Link } from "react-router-dom";
+
+// Hooks
 import { useState } from "react";
+
+// Components
+import RegisterForm from "../components/forms/RegisterForm";
+
+// MUI
+import { Link as MuiLink } from "@mui/material";
+
+// Services
+import { registerUser } from "../services/authService";
 
 const Register = () => {
   const [registerOk, setRegisterOk] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [registerHelperText, setRegisterHelperText] = useState("");
 
-  const handleSubmit = (email, password) => {
+  const handleSubmit = async (email, password) => {
+    setRegisterHelperText("");
+
+    const data = await registerUser(email, password);
+    console.log(data);
+
+    if (!data || !data.status) {
+      setRegisterHelperText("Wystąpił błąd rejestracji");
+      return;
+    }
+
     setRegisterOk(true);
   };
 
-  if (loading) return <Loading />;
-  if (registerOk) return <RegisterOk />;
-  return <RegisterForm handleSubmit={handleSubmit} />;
+  if (registerOk) {
+    return (
+      <div>
+        Rejestracja przebiegła pomyślnie, możesz się{" "}
+        <MuiLink component={Link} to="/login">
+          zalogować
+        </MuiLink>
+      </div>
+    );
+  }
+  return (
+    <>
+      <RegisterForm
+        registerHelperText={registerHelperText}
+        handleSubmit={handleSubmit}
+      />
+    </>
+  );
 };
 
 export default Register;

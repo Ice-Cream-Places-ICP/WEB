@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import DrawerNavbar from "./DrawerNavbar";
+// Hooks
 import { useUserContext } from "../hooks/useUserContext";
 import { useGlobalContext } from "../hooks/useGlobalContext";
+import { useEffect, useState } from "react";
+
+// Components
+import Navbar from "./Navbar";
+import DrawerNavbar from "./DrawerNavbar";
 
 const Header = () => {
   const { user } = useUserContext();
