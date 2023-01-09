@@ -16,62 +16,76 @@ import {
 } from "@mui/material";
 
 // Services
-import { getShops } from "../services/shopService";
+import { GetShops } from "../services/shop";
+import { ColorRing } from "react-loader-spinner";
+import Loading from "../components/Loading";
 
 const Search = () => {
+  const [loading, setLoading] = useState(true);
   const [shopList, setShopList] = useState([]);
+  const [error, setError] = useState("");
   const [filteredShop, setFilteredShop] = useState([]);
   const [query, setQuery] = useState("");
 
+  const compare = (a, b) => {
+    if (a.rating < b.rating) {
+      return 1;
+    }
+    if (a.rating > b.rating) {
+      return -1;
+    }
+    return 0;
+  };
+
   useEffect(() => {
-    let ignore = false;
-    const data = async () => {
-      const data = await getShops();
-      if (!data || !data.status) {
-        if (!ignore) {
-        }
+    const populateShopList = async () => {
+      const getShopsData = await GetShops();
+      if (!getShopsData) {
+        setError(getShopsData.message);
+        setLoading(false);
+        return;
       }
-      if (!ignore) {
-        setShopList(data.content);
-      }
+
+      const arr = getShopsData.content;
+      await arr.sort(compare);
+      setShopList(arr);
+      setLoading(false);
     };
 
-    data();
-    return () => (ignore = true);
+    setLoading(true);
+    populateShopList();
   }, []);
 
   useEffect(() => {
-    let ignore = false;
     if (query === "") {
-      if (!ignore) setFilteredShop([]);
+      setFilteredShop([]);
     } else {
-      if (!ignore) {
-        setFilteredShop(
-          shopList.filter((shop) => {
-            if (
-              shop.name.toLowerCase().includes(query.toLowerCase()) ||
-              shop.flavors.some((flavor) =>
-                flavor.name.toLowerCase().includes(query.toLowerCase())
-              )
+      setFilteredShop(
+        shopList.filter((shop) => {
+          if (
+            shop.name.toLowerCase().includes(query.toLowerCase()) ||
+            shop.flavors.some((flavor) =>
+              flavor.name.toLowerCase().includes(query.toLowerCase())
             )
-              return shop;
-            return null;
-          })
-        );
-      }
+          )
+            return shop;
+          return null;
+        })
+      );
     }
-
-    return () => (ignore = true);
   }, [query]);
+
+  if (loading) return <Loading />;
+  if (!shopList) return <Loading />;
 
   return (
     <Card className="card">
       <CardHeader
         className="card-header"
-        title="
-        Wyszukaj lodziarnię po nazwie lub smaku :D."
+        title="Wyszukaj lodziarnię po nazwie lub smaku :D."
       />
       <CardContent className="card-content">
+        {error && <div className="error">{error}</div>}
         <div className="flex-column">
           <Typography variant="h5" gutterBottom></Typography>
           <TextField
@@ -85,10 +99,7 @@ const Search = () => {
             {filteredShop.map((shop, i) => {
               return (
                 <Grid item key={i} xs={12} sm={6} md={4}>
-                  <ShopCard
-                    shop={shop}
-                    params={{ showFlavors: true, query: query }}
-                  />
+                  <ShopCard shop={shop} params={{ showFlavors: true }} />
                 </Grid>
               );
             })}

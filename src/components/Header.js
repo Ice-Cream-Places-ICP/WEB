@@ -1,74 +1,29 @@
-// Hooks
-import { useUserContext } from "../hooks/useUserContext";
-import { useGlobalContext } from "../hooks/useGlobalContext";
-import { useEffect, useState } from "react";
-
-// Components
-import Navbar from "./Navbar";
 import DrawerNavbar from "./DrawerNavbar";
+import Navbar from "./Navbar";
+
+// Context
+import { useTheme } from "../context/ThemeContext";
+
+const links = [
+  {
+    to: "/search",
+    label: "Szukaj",
+  },
+  {
+    to: "/login",
+    label: "Zaloguj",
+  },
+  {
+    to: "/register",
+    label: "Zarejestruj",
+  },
+];
 
 const Header = () => {
-  const { user } = useUserContext();
-  const { global } = useGlobalContext();
-  const [navbarLinksByUser, setNavbarLinksByUser] = useState([]);
+  const isMobile = useTheme();
 
-  useEffect(() => {
-    let ignore = false;
-
-    const navbarLinks = [
-      {
-        to: "/search",
-        label: "Szukaj",
-        type: ["default", "user", "owner", "admin"],
-      },
-      {
-        to: "/profile",
-        label: "Profil",
-        type: ["user", "owner", "admin"],
-      },
-      {
-        to: "/shop",
-        label: "Lodziarnia",
-        type: ["owner"],
-      },
-      {
-        to: "/admin",
-        label: "Admin panel",
-        type: ["admin"],
-      },
-      {
-        to: "/login",
-        label: "Zaloguj",
-        type: ["default"],
-      },
-      {
-        to: "/register",
-        label: "Zarejestruj",
-        type: ["default"],
-      },
-      {
-        to: "/logout",
-        label: "Wyloguj",
-        type: ["user", "owner", "admin"],
-      },
-    ];
-
-    if (!ignore) {
-      setNavbarLinksByUser(
-        navbarLinks.filter((navbarLink) => {
-          if (navbarLink.type.includes(user.type)) return navbarLink;
-          return null;
-        })
-      );
-    }
-
-    return () => {
-      ignore = true;
-    };
-  }, [user.type]);
-
-  if (global.isMobile) return <DrawerNavbar navbarData={navbarLinksByUser} />;
-  return <Navbar navbarData={navbarLinksByUser} />;
+  if (!isMobile.getIsMobile()) return <Navbar links={links} />;
+  return <DrawerNavbar links={links} />;
 };
 
 export default Header;

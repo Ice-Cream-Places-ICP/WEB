@@ -1,18 +1,15 @@
 import { Link } from "react-router-dom";
-
-// Hooks
 import { useState } from "react";
 
 // MUI
 import {
+  Link as MuiLink,
   AppBar,
   Toolbar,
+  Typography,
   Drawer,
   List,
   ListItem,
-  Grid,
-  Typography,
-  Link as MuiLink,
 } from "@mui/material";
 
 // Icons
@@ -20,7 +17,7 @@ import { CiIceCream } from "react-icons/ci";
 import { FiMenu } from "react-icons/fi";
 import { RiCloseFill } from "react-icons/ri";
 
-const Navbar = ({ navbarData }) => {
+const DrawerNavbar = ({ links }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   return (
@@ -52,20 +49,20 @@ const Navbar = ({ navbarData }) => {
                   </MuiLink>
                 </Typography>
               </ListItem>
-              {navbarData.map((nav, i) => (
+              {links.map((link, i) => (
                 <ListItem key={i}>
                   <Typography>
                     <MuiLink
                       color="text.secondary"
                       component={Link}
-                      to={nav.to}
+                      to={link.to}
                       onClick={() =>
                         setOpenDrawer(() => {
                           return !openDrawer;
                         })
                       }
                     >
-                      {nav.label}
+                      {link.label}
                     </MuiLink>
                   </Typography>
                 </ListItem>
@@ -100,4 +97,4 @@ const Navbar = ({ navbarData }) => {
   );
 };
 
-export default Navbar;
+export default DrawerNavbar;

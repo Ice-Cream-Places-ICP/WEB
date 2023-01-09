@@ -12,7 +12,7 @@ import {
 // Icons
 import { CiIceCream } from "react-icons/ci";
 
-const Navbar = ({ navbarData }) => {
+const Navbar = ({ links }) => {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -25,11 +25,11 @@ const Navbar = ({ navbarData }) => {
             </MuiLink>
           </Typography>
           <Grid container gap={3}>
-            {navbarData.map((nav, i) => (
+            {links.map((link, i) => (
               <Grid item key={i}>
                 <Typography>
-                  <MuiLink color="text.secondary" component={Link} to={nav.to}>
-                    {nav.label}
+                  <MuiLink color="text.secondary" component={Link} to={link.to}>
+                    {link.label}
                   </MuiLink>
                 </Typography>
               </Grid>

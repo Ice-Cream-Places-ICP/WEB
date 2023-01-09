@@ -8,7 +8,7 @@ const ProfileEdit = () => {
         title={<Typography variant="h5">Edytuj profil</Typography>}
       />
       <CardContent className="card-content">
-        jestem konentent edytuj profil
+        <Typography>W budowie...</Typography>
       </CardContent>
     </Card>
   );
