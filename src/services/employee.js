@@ -1,14 +1,14 @@
-import { useAxios } from "./axios";
+import axios from "axios";
+import { baseUrl } from "./api";
 import { useAuthHeader } from "./useAuthHeader";
 
 export const CreateEmployee = async (shopId, employee) => {
   const authHeader = useAuthHeader();
-  const api = useAxios();
 
   if (!authHeader) return { message: "Błąd tokena autoryzacji" };
 
-  return await api
-    .post(`shops/${shopId}/employees`, employee, authHeader)
+  return await axios
+    .post(`${baseUrl}/shops/${shopId}/employees`, employee, authHeader)
     .then((response) => {
       console.log(response);
       return response.data;
@@ -21,12 +21,11 @@ export const CreateEmployee = async (shopId, employee) => {
 
 export const UpdateEmployee = async (shopId, employee) => {
   const authHeader = useAuthHeader();
-  const api = useAxios();
 
   if (!authHeader) return { message: "Błąd tokena autoryzacji" };
 
-  return await api
-    .patch(`shops/${shopId}/employees`, employee, authHeader)
+  return await axios
+    .patch(`${baseUrl}/shops/${shopId}/employees`, employee, authHeader)
     .then((response) => {
       console.log(response);
       return response.data;
@@ -39,12 +38,11 @@ export const UpdateEmployee = async (shopId, employee) => {
 
 export const DeleteEmployee = async (shopId, employee) => {
   const authHeader = useAuthHeader();
-  const api = useAxios();
 
   if (!authHeader) return { message: "Błąd tokena autoryzacji" };
 
-  return await api
-    .delete(`shops/${shopId}/employees/${employee.email}`, authHeader)
+  return await axios
+    .delete(`${baseUrl}/shops/${shopId}/employees/${employee.email}`, authHeader)
     .then((response) => {
       console.log(response.data);
       return response.data;

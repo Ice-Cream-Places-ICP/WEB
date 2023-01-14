@@ -26,7 +26,7 @@ import ResendEmailConfirmation from "../components/ResendEmailConfirmation";
 import Loading from "../components/Loading";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { baseUrl } from "../services/axios";
+import { baseUrl } from "../services/api";
 import ResetPassword from "../components/ResetPassword";
 
 const Logins = () => {

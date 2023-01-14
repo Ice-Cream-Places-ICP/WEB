@@ -1,10 +1,9 @@
-import { useAxios } from "./axios";
+import axios from "axios";
+import { baseUrl } from "./api";
 
 export const SetNewPasswordAuth = async (password, resetCode) => {
-  const api = useAxios();
-
-  return await api
-    .post(`auth/reset-password/${resetCode}`, { password: password })
+  return await axios
+    .post(`${baseUrl}/auth/reset-password/${resetCode}`, { password: password })
     .then((response) => {
       console.log(response.data);
       return response.data;
@@ -16,10 +15,8 @@ export const SetNewPasswordAuth = async (password, resetCode) => {
 };
 
 export const ResetPasswordAuth = async (email) => {
-  const api = useAxios();
-
-  return await api
-    .post("auth/reset-password", { email: email })
+  return await axios
+    .post(`${baseUrl}/auth/reset-password`, { email: email })
     .then((response) => {
       console.log(response.data);
       return response.data;
@@ -31,10 +28,8 @@ export const ResetPasswordAuth = async (email) => {
 };
 
 export const Login = async (email, password) => {
-  const api = useAxios();
-
-  return await api
-    .post("auth/login", {
+  return await axios
+    .post(`${baseUrl}/auth/login`, {
       email: email,
       password: password,
     })
@@ -58,10 +53,8 @@ export const Login = async (email, password) => {
 };
 
 export const Register = async (email, password) => {
-  const api = useAxios();
-
-  return await api
-    .post("auth/register", {
+  return await axios
+    .post(`${baseUrl}/auth/register`, {
       email: email,
       password: password,
     })
@@ -76,10 +69,8 @@ export const Register = async (email, password) => {
 };
 
 export const ResendEmail = async (email) => {
-  const api = useAxios();
-
-  return await api
-    .post("mail/resend-confirmation", {
+  return await axios
+    .post(`${baseUrl}/mail/resend-confirmation`, {
       email: email,
     })
     .then((response) => {
@@ -93,11 +84,10 @@ export const ResendEmail = async (email) => {
 };
 
 export const AuthConfirmEmail = async (key) => {
-  const api = useAxios();
   if (!key) return { message: "Nieprawidłowy klucz aktywacji." };
 
-  return api
-    .get(`auth/confirm/${key}`)
+  return axios
+    .get(`${baseUrl}/auth/confirm/${key}`)
     .then((response) => {
       console.log(response.data);
       return response.data;

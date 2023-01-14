@@ -1,14 +1,14 @@
-import { useAxios } from "./axios";
+import axios from "axios";
+import { baseUrl } from "./api";
 import { useAuthHeader } from "./useAuthHeader";
 
 export const CreateReview = async (shopId, reviewContent) => {
-  const api = useAxios();
   const authHeader = useAuthHeader();
 
   if (!authHeader) return { message: "Błąd tokena autoryzacji" };
 
-  return await api
-    .post(`shops/${shopId}/review`, reviewContent, authHeader)
+  return await axios
+    .post(`${baseUrl}/shops/${shopId}/review`, reviewContent, authHeader)
     .then((response) => {
       console.log(response.data);
       return response.data;
@@ -20,12 +20,11 @@ export const CreateReview = async (shopId, reviewContent) => {
 };
 
 export const UpdateReview = async (shopId, reviewId, reviewContent) => {
-  const api = useAxios();
   const authHeader = useAuthHeader();
   if (!authHeader) return { message: "Błąd tokena autoryzacji" };
 
-  return await api
-    .patch(`shops/${shopId}/review/${reviewId}`, reviewContent, authHeader)
+  return await axios
+    .patch(`${baseUrl}/shops/${shopId}/review/${reviewId}`, reviewContent, authHeader)
     .then((response) => {
       console.log(response);
       return response.data;
@@ -37,13 +36,12 @@ export const UpdateReview = async (shopId, reviewId, reviewContent) => {
 };
 
 export const DeleteReview = async (shopId, reviewId) => {
-  const api = useAxios();
   const authHeader = useAuthHeader();
 
   if (!authHeader) return { message: "Błąd tokena autoryzacji" };
 
-  return await api
-    .delete(`shops/${shopId}/review/${reviewId}`, authHeader)
+  return await axios
+    .delete(`${baseUrl}/shops/${shopId}/review/${reviewId}`, authHeader)
     .then((response) => {
       console.log(response.data);
       return response.data;
