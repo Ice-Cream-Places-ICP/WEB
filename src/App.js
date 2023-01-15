@@ -49,6 +49,7 @@ import ToggleColorMode from "./theme/ToggleColorMode";
 import ShopEmployee from "./pages/ShopEmployee";
 import ProfileNotification from "./components/ProfileNotification";
 import SetNewPassword from "./pages/SetNewPassword";
+import EditShopEmployee from "./pages/EditShopEmployee";
 
 // Pages
 
@@ -135,7 +136,7 @@ const App = () => {
             <Route
               path="/shop/:id/edit"
               element={
-                <Protected access={["admin", "owner"]}>
+                <Protected access={["admin", "owner", "employee"]}>
                   <EditShop />
                 </Protected>
               }
@@ -162,7 +163,7 @@ const App = () => {
             <Route
               path="/logout"
               element={
-                <Protected access={["default", "owner", "admin"]}>
+                <Protected access={["default", "owner", "admin", "employee"]}>
                   <Logouts />
                 </Protected>
               }
@@ -194,7 +195,7 @@ const App = () => {
             <Route
               path="/profile"
               element={
-                <Protected access={["admin", "owner", "default"]}>
+                <Protected access={["admin", "owner", "default", "employee"]}>
                   <Profile />
                 </Protected>
               }
@@ -208,7 +209,7 @@ const App = () => {
             <Route
               path="/shop"
               element={
-                <Protected access={["admin", "owner", "default"]}>
+                <Protected access={["admin", "owner", "default", "employee"]}>
                   <Shops />
                 </Protected>
               }
@@ -229,7 +230,7 @@ const App = () => {
             <Route
               path="/shop/add"
               element={
-                <Protected access={["owner", "admin", "default"]}>
+                <Protected access={["owner", "admin", "default", "employee"]}>
                   <AddShop />
                 </Protected>
               }
@@ -244,6 +245,14 @@ const App = () => {
               }
             />
 
+            <Route
+              path="/shop/:id/edit/employee"
+              element={
+                <Protected access={["admin", "employee"]}>
+                  <EditShopEmployee />
+                </Protected>
+              }
+            />
             <Route path="*" element={<Lost />} />
           </Routes>
         </Container>
