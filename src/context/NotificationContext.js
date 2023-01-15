@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 export const NotificationContext = createContext();
 
 export const NotificationContextProvider = ({ children }) => {
-  const [notification, setNotification] = useState([]);
+  const [notification, setNotification] = useState(["xs", "xs"]);
 
   return (
     <NotificationContext.Provider value={{ notification, setNotification }}>

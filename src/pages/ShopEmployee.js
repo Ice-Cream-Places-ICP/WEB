@@ -10,7 +10,6 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
@@ -158,12 +157,7 @@ const ShopEmployee = () => {
                       </Select>
                     </FormControl>
                     <div>
-                      <div className="flex-row flex-space-between flex-center">
-                        {employee.status && employee.status === "pending" ? (
-                          <Typography variant="body2">Oczekuje</Typography>
-                        ) : (
-                          ""
-                        )}
+                      <div className="flex-row flex-space-between">
                         <Button
                           variant="contained"
                           disabled={!changed.includes(employee.email)}

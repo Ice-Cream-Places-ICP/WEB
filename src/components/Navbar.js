@@ -64,7 +64,8 @@ const Navbar = ({ links }) => {
             >
               <Badge
                 badgeContent={
-                  userContext.user && userContext.user.notifications.length
+                  notificationContext.notification &&
+                  notificationContext.notification.length
                 }
                 color="secondary"
               >

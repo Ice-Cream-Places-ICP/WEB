@@ -2,22 +2,6 @@ import axios from "axios";
 import { baseUrl } from "./api";
 import { useAuthHeader } from "./useAuthHeader";
 
-export const FavoriteShop = async (shopId) => {
-  const api = useAxios();
-  const header = useAuthHeader();
-
-  return await api
-    .post(`users/favorite-shops/${shopId}`, {}, header)
-    .then((response) => {
-      console.log(response.data);
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-      return error.response.data;
-    });
-};
-
 export const GetShops = async () => {
   return await axios
     .get(`${baseUrl}/shops`)

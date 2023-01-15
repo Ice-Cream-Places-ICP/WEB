@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardContent,
   CardHeader,
@@ -10,44 +9,96 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { IoClose } from "react-icons/io5";
+import { CiCircleRemove } from "react-icons/ci";
 import { useNotification } from "../context/NotificationContext";
-import { useUser } from "../context/UserContext";
 import Loading from "./Loading";
-import NotificationShopInvitation from "./NotificationShopInvitation";
-import NotificationShopUpdate from "./NotificationShopUpdate";
 
 const ProfileNotification = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const userContext = useUser();
+  const notificationContext = useNotification();
+
+  const handleRemoveNotification = async (e, notifi) => {
+    e.preventDefault();
+    setLoading(true);
+    // const removeNotificationData = await RemoveNotification(notifi.id);
+    // if (!removeNotificationData.status) {
+    //   setError(removeNotificationData.message);
+    //   setLoading(false);
+    //   return;
+    // }
+    // const arr = notificationContext.notification;
+    // arr.findIndex((obj) => obj.id === notifi.id);
+    // if (index <= 0) return;
+    // arr.splice(index, 1);
+    // notificationContext.setNotification(arr);
+    setLoading(false);
+  };
+
+  const handleRemoveAllNotification = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // const removeNotificationData = await RemoveAllNotification();
+    // if (!removeNotificationData.status) {
+    //   setError(removeNotificationData.message);
+    //   setLoading(false);
+    //   return;
+    // }
+    // const populateNotificationData = await GetAllNotification();
+    // if (!populateNotificationData.status) {
+    //   setError(populateNotificationData.message);
+    //   setLoading(false);
+    //   return;
+    // }
+    // notificationContext.setNotification(populateNotificationData.content);
+    setLoading(false);
+  };
 
   if (loading) return <Loading />;
-  if (userContext.user.notifications.length <= 0)
-    return (
-      <Card className="card-profile">
-        <CardHeader className="card-header-profile" title="Powiadomienia" />
-        <CardContent className="card-content-profile">
-          Brak powiadomień
-        </CardContent>
-      </Card>
-    );
+  //   if (!notificationContext.notification)
+  //     return (
+  //       <Card className="card">
+  //         <CardHeader className="card-header" title="Powiadomienia" />
+  //         <CardContent className="card-content">Brak powiadomień</CardContent>
+  //       </Card>
+  //     );
   return (
     <Card className="card-profile">
-      <CardHeader className="card-header-profile" title="Powiadomienia" />
+      <CardHeader
+        className="card-header-profile"
+        title={
+          <div className="flex-row flex-space-between flex-center">
+            <Typography variant="h5">Powiadomienia</Typography>
+            <div>
+              {notificationContext.notification && (
+                <IconButton onClick={handleRemoveAllNotification}>
+                  <CiCircleRemove />
+                </IconButton>
+              )}
+            </div>
+          </div>
+        }
+      />
       <CardContent className="card-content-profile">
         <List>
-          {userContext.user &&
-            userContext.user.notifications.map((notifi) => (
-              <div key={notifi._id}>
+          {notificationContext.notification &&
+            notificationContext.notification.map((notifi) => (
+              <>
+                {/* dokonczyc gdy api <ListItem key={notifi.id}>Cd</ListItem> */}
                 <ListItem>
-                  {notifi.type === "shopInvitation" && (
-                    <NotificationShopInvitation notifi={notifi} />
-                  )}
-                  {notifi.type === "shopUpdate" && (
-                    <NotificationShopUpdate notifi={notifi} />
-                  )}
+                  <div className="flex-row flex-space-between flex-center full-width">
+                    <div>Name of notifi and link to event</div>
+                    <div>
+                      <IconButton
+                        onClick={(e) => {
+                          handleRemoveNotification(e, notifi);
+                        }}
+                      >
+                        <CiCircleRemove />
+                      </IconButton>
+                    </div>
+                  </div>
                 </ListItem>
                 <div>
                   <Divider
@@ -57,7 +108,7 @@ const ProfileNotification = () => {
                     }}
                   />
                 </div>
-              </div>
+              </>
             ))}
         </List>
       </CardContent>

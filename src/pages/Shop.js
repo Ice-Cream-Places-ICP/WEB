@@ -17,8 +17,6 @@ import {
   IconButton,
 } from "@mui/material";
 
-import { ThreeDots } from "react-loader-spinner";
-
 // Icons
 import { CiIceCream, CiUser } from "react-icons/ci";
 import { HiHeart } from "react-icons/hi";
@@ -26,7 +24,7 @@ import { HiOutlineHeart } from "react-icons/hi";
 import { CiMapPin } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
 import { CiEdit } from "react-icons/ci";
-import { FavoriteShop, GetShopById } from "../services/shop";
+import { GetShopById } from "../services/shop";
 import Map from "../components/Map";
 import { useUser } from "../context/UserContext";
 import Reviews from "../components/Reviews";
@@ -38,7 +36,6 @@ const Shop = () => {
   const [error, setError] = useState("");
   const [showMap, setShowMap] = useState(false);
   const [shop, setShop] = useState(null);
-  const [addingToFavorite, setAddingToFavorite] = useState(false);
   const params = useParams();
   const userContext = useUser();
 
@@ -57,27 +54,6 @@ const Shop = () => {
     if (m <= 9) m = `0${m}`;
 
     return `${h}:${m}`;
-  };
-
-  const handleFavorite = async (e) => {
-    e.preventDefault();
-    setAddingToFavorite(true);
-    const favoriteData = await FavoriteShop(params.id);
-    if (!favoriteData.status) {
-      setError(favoriteData.message);
-      setAddingToFavorite(false);
-      return;
-    }
-
-    const userData = await GetUser();
-    if (!userData.status) {
-      setError(userData.message);
-      setLoading(false);
-      setAddingToFavorite(false);
-      return;
-    }
-    await userContext.setUser(userData.content);
-    setAddingToFavorite(false);
   };
 
   useEffect(() => {
@@ -131,38 +107,28 @@ const Shop = () => {
 
               {userContext.user && (
                 <div>
-                  {userContext.user.favoriteShops.includes(params.id) ? (
-                    <IconButton color="error" onClick={handleFavorite}>
-                      <HiHeart />
-                    </IconButton>
-                  ) : (
-                    <IconButton onClick={handleFavorite}>
-                      <HiOutlineHeart />
-                    </IconButton>
-                  )}
+                  <IconButton
+                    color="error"
+                    component={Link}
+                    to={`/shop/${params.id}/edit`}
+                  >
+                    <HiHeart />
+                  </IconButton>
 
+                  <IconButton component={Link} to={`/shop/${params.id}/edit`}>
+                    <HiOutlineHeart />
+                  </IconButton>
                   {(userContext.user.shops.filter(
                     (shop) => shop.id._id === params.id
                   ).length > 0 ||
                     userContext.user.roles.includes("admin")) && (
                     <>
-                      {shop.jobPosition === "owner" ||
-                        (userContext.user.roles.includes("admin") && (
-                          <IconButton
-                            component={Link}
-                            to={`/shop/${params.id}/edit`}
-                          >
-                            <CiEdit />
-                          </IconButton>
-                        ))}
-                      {shop.jobPosition === "employee" && (
-                        <IconButton
-                          component={Link}
-                          to={`/shop/${params.id}/edit/employee`}
-                        >
-                          <CiEdit />
-                        </IconButton>
-                      )}
+                      <IconButton
+                        component={Link}
+                        to={`/shop/${params.id}/edit`}
+                      >
+                        <CiEdit />
+                      </IconButton>
                       {(userContext.user.shops.filter(
                         (shop) =>
                           shop.id._id === params.id &&
