@@ -74,6 +74,7 @@ const Registers = () => {
       return;
     }
 
+    setLoading(false);
     setSuccess(true);
   };
 

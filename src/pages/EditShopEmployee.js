@@ -8,7 +8,11 @@ import ShopAddName from "../components/ShopAddName";
 import ShopAddOpeningHours from "../components/ShopAddOpeningHours";
 import ShopAddSummary from "../components/ShopAddSummary";
 import { useUser } from "../context/UserContext";
-import { GetShopById, UpdateShopById } from "../services/shop";
+import {
+  GetShopById,
+  UpdateShopById,
+  UpdateShopFlavorsById,
+} from "../services/shop";
 import { GetUser } from "../services/user";
 
 const EditShopEmployee = () => {
@@ -29,14 +33,14 @@ const EditShopEmployee = () => {
 
   const handleUpdateShop = async () => {
     setLoading(true);
-    const res = await UpdateShopById(params.id, formData);
+    const res = await UpdateShopFlavorsById(params.id, formData.flavors);
     if (res.status) {
       console.log(res.content);
 
       const userData = await GetUser();
       user.setUser(await userData.content);
 
-      navigate(`/shop/${res.content._id}`);
+      navigate(`/shop/${params.id}`);
       return;
     }
     setError(res.message);
@@ -70,27 +74,17 @@ const EditShopEmployee = () => {
   switch (step) {
     case 1: {
       return (
-        <ShopAddOpeningHours
-          step={step}
-          setStep={setStep}
-          formData={formData}
-          setFormData={setFormData}
-          styleTime={styleTime}
-        />
-      );
-    }
-    case 2: {
-      return (
         <ShopAddFlavors
           step={step}
           setStep={setStep}
           formData={formData}
           setFormData={setFormData}
           styleTime={styleTime}
+          editEmployee={true}
         />
       );
     }
-    case 3: {
+    case 2: {
       return (
         <>
           <ShopAddSummary

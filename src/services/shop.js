@@ -60,6 +60,24 @@ export const UpdateShopById = async (shopId, shop) => {
     });
 };
 
+export const UpdateShopFlavorsById = async (shopId, flavors) => {
+  const authHeader = useAuthHeader();
+  const api = useAxios();
+
+  if (!authHeader) return { message: "Błąd tokena autoryzacji" };
+
+  return await api
+    .patch(`shops/${shopId}/flavors`, flavors, authHeader)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error.response.data;
+    });
+};
+
 export const DeleteShopById = async (shopId) => {
   const authHeader = useAuthHeader();
 

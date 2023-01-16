@@ -1,0 +1,290 @@
+\documentclass{article}
+
+\usepackage[OT4]{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm,right=2cm,top=1.5cm,bottom=2cm,includeheadfoot,a4paper]{geometry}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{a4paper}
+\linespread{1.5}
+\frenchspacing
+\renewcommand{\arraystretch}{1.4}
+
+\title{
+	Projektowanie i programowanie systemów internetowych II\\
+	\Huge{Ice Cream Places}
+}
+
+\date{}
+
+\begin{document}
+	\maketitle
+
+	\section {Opis funkcjonalny systemu}
+    Projekt aplikacji internetowej przeznaczonej do umieszczania informacji o lokalach sprzedających lody przez ich właścicieli wraz z oferowanymi rodzajami lodów oraz godzinami otwarcia. Użytkownicy odwiedzający stronę mogą przeglądać i wyszukiwać zarejestrowane lokale oraz ich ofertę, natomiast zalogowani użytkownicy mogą także dodawać lodziarnie do swoich ulubionych, oceniać i recenzować lodziarnie oraz otrzymują dostęp do panelu powiadomień. Dodatkowo użytkownicy wyznaczeni przez właścicieli lodziarni, mogą w tych lodziarniach zmieniać dostępne smaki oraz godziny otwarcia. 
+    
+    \subsection{Funkcjonalność aplikacji obejmuje:}
+    \begin{itemize}
+        \item Uwierzytelnianie użytkownika (również SocialMedia);
+        \item Rejestracja i logowanie;
+        \item Profil użytkownika;
+        \item Resetowanie hasła;
+        \item Wyszukiwarka;
+        \item Multitenancy - wielodostępność i system autoryzacji akcji użytkowników;
+        \item Wyświetlanie szczegółów o lodziarniach wraz z mapą;
+        \item Zarządzanie smakami lodów;
+        \item Możliwość edycji oferty przez właściciela oraz pracowników lokalu;
+        \item Dodawanie opinii na temat lokali;
+        \item Migracja rzeczywistych danych - ograniczona do obszaru miasta Legnica.
+    \end{itemize}
+
+    \section{Streszczenie opisu technologicznego}
+    W projekcie zdecydowaliśmy korzystać ze stack-u MERN (MongoDB, Express.js, React.js, Node.js), ze względu na poprzednie doświadczenie niektórych członków zespołu oraz względnie przystępny proces wdrożenia w technologię dla osób, które nie miały z nią stycznością. Ponadto wskazane technologie poniżej posiadają przystępną w odbiorze oraz obszerną dokumentację.
+    \begin{itemize}
+        \item \textbf{GitHub} - miejsce do kontroli wersji kodu. Pozwala na łatwą synchronizację między członkami grupy oraz na prostą kontrolę zmian w kodzie.
+        \item \textbf{Asana} - platforma do kontrolowania workflow. Rozpisujemy na niej taski. Dzięki temu możemy kontrolować postępy kodowania aplikacji, przypisywać zadania odpowiednim osobom oraz zdobywać założone kamienie milowe.
+        \item \textbf{Visual Studio Code} - edytor kodu źródłowego, odpowiada za poprawę składni i przyspiesza pisanie kodu.
+        \item \textbf{JavaScript} - język programowania, najczęściej spotykany i używany na stronach internetowych, jest mocno związany z technologiami wymienionymi poniżej. 
+        \item \textbf{MongoDB} - nie relacyjna baza danych, pracująca w chmurze, pozwala nam przechowywać dane.
+        \item \textbf{Express.JS} - framework pracujący po stronie serwera. Pomaga nam mapować endpointy, które uruchamiają funkcjonalność po stronie serwera. Pomaga obsługiwać zapytania oraz odpowiedzi HTTP.
+        \item \textbf{React.JS} - elastyczna biblioteka frontendowa, bazująca na komponentach wielokrotnego użytku. W naszym projekcie komponenty będą wykorzystywane w wielu miejscach. 
+        \item \textbf{Node.JS} - środowisko do uruchamiania javascriptu, pozwala na obsługę backendu.
+    \end{itemize}
+
+    \section{Instrukcja lokalnego i zdalnego uruchomienia}
+        \subsection{Lokalne}
+            \subsubsection{Backend}
+            \begin{itemize}
+                \item Zainstaluj Node.js
+                \item Zainstaluj klienta Git
+                \item Uruchom konsole i wpisz:
+                \begin{lstlisting}
+    git clone https://github.com/Ice-Cream-Places-ICP/API.git
+                \end{lstlisting}
+                \item Następnie przejdź do folderu z projektem otwórz konsolę i wpisz:
+                \begin{lstlisting}
+    npm install
+                \end{lstlisting}
+                \item Poczekaj na koniec procesu i wpisz w konsoli:
+                \begin{lstlisting}
+    npm run dev
+                \end{lstlisting}
+                \item Poprawne działanie aplikacji sygnalizuje informacja: 
+                \begin{lstlisting}
+    Server up at port
+                \end{lstlisting}
+                \end{itemize}
+
+            Aplikacja potrzebuje do działania pliku \textbf{.env}, w którym będą następujące informacje:
+            \begin{itemize}
+                \item \textbf{PORT} - numer portu używany przez aplikację
+                \item \textbf{API\_URL} - adres URL aplikacji
+                \item \textbf{WEB\_PORT} - adres URL klienta
+                \item \textbf{TOKEN\_SECRET} - token wykorzystywany do kodowania i dekodowania tokenu JWT
+                \item \textbf{DB\_CONNECTION} - ciąg znaków do podłączenia bazy danych MongoDB
+                \item \textbf{TEST\_DB\_CONNECTION} - ciąg znaków do podłączenia bazy danych MongoDB wykorzystywanej w testach
+                \item \textbf{USER} - adres email do wysyłania maili przez aplikację
+                \item \textbf{PASS} - hasło do poczty email (z konfiguracji dla aplikacji)
+                \item \textbf{GOOGLE\_CLIENT\_ID} - identyfikator klienta otrzymany od google
+                \item \textbf{GOOGLE\_CLIENT\_SECRET} - tajny klucz klienta otrzymany od google
+                \item \textbf{FACEBOOK\_CLIENT\_ID} - identyfikator klienta otrzymany od facebook
+                \item \textbf{FACEBOOK\_CLIENT\_SECRET} - tajny klucz klienta otrzymany od facebook
+            \end{itemize}
+
+            \subsubsection{Frontend}
+            \begin{itemize}
+                \item Zainstaluj Node.js
+                \item Zainstaluj klienta Git
+                \item Uruchom konsole i wpisz:
+                \begin{lstlisting}
+    git clone https://github.com/Ice-Cream-Places-ICP/WEB.git
+                \end{lstlisting}
+                \item Następnie przejdź do folderu z projektem, otwórz konsolę i wpisz:
+                \begin{lstlisting}
+    npm install
+                \end{lstlisting}
+                \item Poczekaj na koniec procesu i wpisz w konsoli:
+                \begin{lstlisting}
+    npm start
+                \end{lstlisting}
+            \end{itemize}
+            Po tych krokach powinna uruchomić się przeglądarka internetowa z adresem \textbf{localhost:3000} i po chwili wyświetlić stronę startową projektu.
+
+        \subsection{Zdalne}
+        Aplikacja jest podzielona na backend oraz frontend. Wymagało to od nas zastanowienia się nad serwisem hostującym naszą aplikację. Decyzja padła na platformę Vercel, która spełnia wszystkie nasze wymagania. Pozwala uruchomić aplikację wykorzystującą React.js oraz Node.js, Express.js. Baza danych, która jest niezbędna do prawidłowego działania aplikacji wykorzystuje platformę MongoDB. 
+        Platforma Vercel zapewnia darmowe hostowanie aplikacji oraz darmową domeny, które wykorzystujemy jako adresy URL naszej aplikacji. Pozwala na używanie zmiennych środowiskowych, zapisuje logi aplikacji oraz na łatwą koordynację wdrażania aplikacji. Dzięki połączeniu platformy z GitHub każda zmiana jest automatycznie wykrywana i Vercel tworzy nowy build, który jako można wykorzystać jako wersja produkcyjna. 
+        Aby platforma Vercel odpowiednio współpracowała z aplikacją backendu wymaga pliku konfiguracyjnego vercel.json w głównym katalogu repozytorium. Przykład takiego pliku dla aplikacji Node.js:
+        \begin{lstlisting}
+{
+"version": 2,
+"builds": [
+    {
+    "src": "./index.js",
+    "use": "@vercel/node"
+    }
+],
+"routes": [
+    {
+    "src": "/(.*)",
+    "dest": "/"
+    }
+]
+}
+        \end{lstlisting}
+        Aplikacja frontendu wymaga mniej zaangażowania, ponieważ wystarczy aby platforma Vercel miała możliwość śledzenia repozytorium. i Vercel automatycznie zacznie taką aplikacje hostować. 
+        Problemem, o którym na początku projektu nie pomyśleliśmy, był podzielony projekt na dwa repozytoria. Spowodowało to, iż najbardziej rozsądnym rozwiązaniem było przypisanie aplikacji frontendu i backendu dwóch różnych domen. Jednak ostatecznie udało się rozwiązać wszystkie problemy związane z zastosowaniem takiego rozwiązania.
+    
+    \section{Instrukcja uruchomienia testów oraz opis testowaych funkcjonalności}
+        \subsection{Backend}
+        W celu uruchomienia testów należy skorzystać z instrukcji lokalnego uruchomienia. Następnie znajdując się w folderze projektu należy wprowadzić w terminal komendę: 
+        \begin{lstlisting}
+    npm run test.
+        \end{lstlisting}
+        Wykorzystywane w projekcie frameworki testowe to:
+        \begin{itemize}
+            \item \textbf{jest} https://github.com/facebook/jest
+            \item \textbf{supertest} https://github.com/ladjs/supertest
+        \end{itemize}
+        W projekcie występują testy integracyjne, które sprawdzają działanie aplikacji oraz poprawność operacji przez nią wykonywanych na bazie danych. W testach wykonywane są zapytania do aplikacji i sprawdzana jest odpowiedź w celu określenia jej poprawności. Pokrycie testowe obejmuje takie funkcjonalności jak: 
+        \begin{itemize}
+            \item rejestracja
+            \item logowanie
+            \item pobieranie danych sklepu
+        \end{itemize}
+        Spis scenariuszy testowych wygenerowany po uruchomieniu testów:
+        \begin{lstlisting}
+PASS  tests/sequentialRunner.test.js (9.26 s)
+    sequentially run tests
+POST /auth/login
+given any body
+    √ should specify json in the content type header (2 ms)
+    √ should contain json message in reponse body
+given valid email and password
+    √ should return body containing token (1 ms)
+    √ should return valid token (1 ms)
+    √ should return "Login Successfully" message
+    √ should return status code 200
+given invalid email or password
+    √ should return "Invalid credentials" message
+    √ should not return token (1 ms)
+    √ should return status code 400 (1 ms)
+when the email or password is missing
+    √ should return "All fields are required" message
+    √ should not return token
+    √ should return status code 400 (1 ms)
+POST /auth/register
+given any body
+    √ should specify json in the content type header (349 ms)
+    √ should contain json message in reponse body (80 ms)
+given valid email and password
+    √ should return "New user created" message (285 ms)
+    √ should respond with status code 200 (229 ms)
+given invalid email
+    √ should return "Invalid email" message (18 ms)
+    √ should return status code 400 (22 ms)
+given invalid password
+    √ should return "Password must contain minimum 8 letters containing at least - 1 lowercase, 1 uppercase, 1 number, 1 symbol" message (18 ms)
+    √ should return status code 400 (24 ms)
+when the email or password is missing
+    √ should return status false (44 ms)
+    √ should return "All fields are required" message (52 ms)
+    √ should return status code 400 (37 ms)
+when user already exists
+    √ should contain "User already exists" json message inside body (211 ms)
+    √ should return status false (192 ms)
+    √ should return status code 400 (200 ms)
+GET /shops/:id
+given valid id
+    √ should specify json in the content type header (28 ms)
+    √ should contain json message in reponse body (27 ms)
+given valid id of shop that exists within database
+    √ should return "Shop retrieved" message (25 ms)
+    √ should return body containing all fields with valid values (27 ms)
+    √ should return status code 200 (23 ms)
+given valid id of shop that doesn't exists within database
+    √ should return "Shop not found" message (37 ms)
+    √ should return status code 400 (25 ms)
+given invalid id
+    √ should return "Invalid shop id" message (20 ms)
+    √ should return status code 400 (19 ms)
+        \end{lstlisting}
+
+        \subsection{Frontend}
+        W celu uruchomienia testów należy skorzystać z instrukcji lokalnego uruchomienia. Następnie znajdując się w folderze projektu należy wprowadzić w terminal komendę: 
+        \begin{lstlisting}
+    npm test
+        \end{lstlisting}
+        Wykorzytany w projekcie pakiet testowy 
+        \begin{itemize}
+            \item \textbf{testing-library-react} https://testing-library.com/docs/react-testing-library/intro/
+        \end{itemize}
+        W projekcie występują testy, które sprawdzają poprawność wyświetlenia danych w odpowiednich komponentach. Testy obejmują również sprawdzenie dostęp do odpowiednich stron/komponentów w zależności od rodzaju użytkownika.
+        Spis elementów testowanych wygenerowany po uruchomieniu testów:
+        \begin{lstlisting}
+ PASS  src/tests/components/AdminUsersProfile.test.js (7.473 s)
+ PASS  src/tests/components/Header.test.js (8.676 s)
+ PASS  src/tests/components/DrawerNavbar.test.js
+ PASS  src/tests/components/AdminHeader.test.js
+ PASS  src/tests/components/AdminShops.test.js
+  ● Console
+
+    console.log
+      []
+
+      at src/services/shop.js:9:15
+
+    console.log
+      [
+        {
+          name: 'name: test 1',
+          address: {
+            country: 'country: test 1',
+            city: 'city: test 1',
+            postCode: 'postCode: test 1',
+            streetName: 'streetName: test 1',
+            streetNumber: 'streetNumber test 1'
+          },
+          openingHours: {
+            weekDay: 'weekDay test 1',
+            startHour: 'startHour test 1',
+            startMinute: 'startMinute test 1',
+            endHour: 'endHour test 1',
+            endMinute: 'endMinute test 1'
+          },
+          flavors: [ [Object] ],
+          _id: '1'
+        }
+      ]
+
+      at src/services/shop.js:9:15
+
+ PASS  src/tests/components/ShopCard.test.js
+ PASS  src/tests/components/AdminNavigation.test.js
+ PASS  src/tests/components/AdminUsers.test.js
+ PASS  src/tests/components/ProfileNavigation.test.js
+ PASS  src/tests/components/ProfileNotification.test.js
+ PASS  src/tests/components/ProfileView.test.js
+ PASS  src/tests/pages/Lost.test.js
+ PASS  src/tests/components/ProfileEdit.test.js
+ PASS  src/tests/components/ProfileFavorite.test.js
+
+Test Suites: 14 passed, 14 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        29.599 s
+Ran all test suites.
+\end{lstlisting}
+    \section{Linki do dokumentacji projektu}
+    \begin{itemize}
+        \item \textbf{Backend} - \href{https://github.com/Ice-Cream-Places-ICP/API}{https://github.com/Ice-Cream-Places-ICP/API}
+        \item \textbf{Frontend} - 
+    \href{https://github.com/Ice-Cream-Places-ICP/WEB}{https://github.com/Ice-Cream-Places-ICP/API}
+    \end{itemize}
+    \section{Wnioski projektowe}
+    Proces tworzenia aplikacji okazał się dużym wyzwaniem zarówno pod względem wymagań funkcjonalnych, jaki komunikacji i współpracy w zespole. W trakcie realizacji projektu staraliśmy się wykorzystywać narzędzia ułatwiające pracę zespołową - początkowo w celu implementacji metodyki SCRUM wykorzystywaliśmy narzędzie o nazwie Asana, później natomiast przenieśliśmy się na platformę GitHub. Posunięcie te uprościło orientowanie się w postępach projektu, ponieważ mogliśmy korzystać z narzędzia GitHub Projects, ale przede wszystkim rozpisywać zadania w formie Issues. 
+    Początkowo w grupie były przeprowadzane dość częste spotkania, na których wymienialiśmy się informacjami na temat poczynionych postępów, planów, czy też uwagami na temat implementacji określonych rozwiązań. W pewnym momencie natomiast częstotliwość spotkań zmalało, a część członków projektu nieco straciła zainteresowanie w związku z czym pojawiła się stagnacja w postępach. 
+    Przełomowym etapem w projekcie było wdrożenie aplikacji na serwer, co pozwoliło na bezpośrednią obserwację efektów pracy, a także wzrost motywacji w zespole (niestety, nie każdy członek zespołu ten wzrost poczuł). 
+    Ostatecznie projekt udało się doprowadzić do stanu używalności oraz spełnić większość założeń funkcjonalnych. Pomimo wielu problemów aplikacja na obecnym etapie funkcjonuje w sposób zadowalający. Pewne funkcjonalności wciąż wymagają dopracowania, a niektóre nawet nie zostały jeszcze zaimplementowane, natomiast są one zaplanowane i rozwijane. 
+
+\end{document}

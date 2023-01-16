@@ -9,7 +9,13 @@ import { useEffect, useState } from "react";
 import ShopAddInputFlavor from "./ShopAddInputFlavor";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
-const ShopAddFlavors = ({ step, setStep, formData, setFormData }) => {
+const ShopAddFlavors = ({
+  step,
+  setStep,
+  formData,
+  setFormData,
+  editEmployee,
+}) => {
   const [plusDisable, setPlusDisable] = useState(false);
   const [minusDisable, setMinusDisable] = useState(true);
   const [disableButton, setDisableButton] = useState(true);
@@ -105,16 +111,18 @@ const ShopAddFlavors = ({ step, setStep, formData, setFormData }) => {
             </div>
           </div>
           <div className="flex-row">
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={(e) => {
-                e.preventDefault();
-                setStep(step - 1);
-              }}
-            >
-              Wstecz
-            </Button>
+            {!editEmployee && (
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setStep(step - 1);
+                }}
+              >
+                Wstecz
+              </Button>
+            )}
             <Button
               disabled={disableButton}
               fullWidth

@@ -11,9 +11,11 @@ import {
 import { useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import { useNotification } from "../context/NotificationContext";
+import { useUser } from "../context/UserContext";
 import Loading from "./Loading";
 
 const ProfileNotification = () => {
+  const userContext = useUser();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -56,13 +58,17 @@ const ProfileNotification = () => {
   };
 
   if (loading) return <Loading />;
-  //   if (!notificationContext.notification)
-  //     return (
-  //       <Card className="card">
-  //         <CardHeader className="card-header" title="Powiadomienia" />
-  //         <CardContent className="card-content">Brak powiadomień</CardContent>
-  //       </Card>
-  //     );
+  if (userContext.user.notifications.length <= 0)
+    return (
+      <Card className="card-profile">
+        <CardHeader className="card-header-profile" title="Powiadomienia" />
+        <CardContent className="card-content-profile">
+          <List>
+            <Typography variant="body1">Brak powiadomień</Typography>
+          </List>
+        </CardContent>
+      </Card>
+    );
   return (
     <Card className="card-profile">
       <CardHeader
@@ -82,34 +88,29 @@ const ProfileNotification = () => {
       />
       <CardContent className="card-content-profile">
         <List>
-          {notificationContext.notification &&
-            notificationContext.notification.map((notifi) => (
-              <>
-                {/* dokonczyc gdy api <ListItem key={notifi.id}>Cd</ListItem> */}
-                <ListItem>
-                  <div className="flex-row flex-space-between flex-center full-width">
-                    <div>Name of notifi and link to event</div>
-                    <div>
-                      <IconButton
-                        onClick={(e) => {
-                          handleRemoveNotification(e, notifi);
-                        }}
-                      >
-                        <CiCircleRemove />
-                      </IconButton>
-                    </div>
+          {userContext.user &&
+            userContext.user.notifications
+              .map((notifi) => (
+                <div key={notifi._id}>
+                  <ListItem>
+                    {notifi.type === "shopInvitation" && (
+                      <NotificationShopInvitation notifi={notifi} />
+                    )}
+                    {notifi.type === "shopUpdate" && (
+                      <NotificationShopUpdate notifi={notifi} />
+                    )}
+                  </ListItem>
+                  <div>
+                    <Divider
+                      style={{
+                        marginBottom: "1rem",
+                        paddingBottom: "1rem",
+                      }}
+                    />
                   </div>
-                </ListItem>
-                <div>
-                  <Divider
-                    style={{
-                      marginBottom: "1rem",
-                      paddingBottom: "1rem",
-                    }}
-                  />
                 </div>
-              </>
-            ))}
+              ))
+              .reverse()}
         </List>
       </CardContent>
     </Card>
