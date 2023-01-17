@@ -19,7 +19,6 @@ describe('ShopAddOpeningHours', () => {
       />
     )
 
-    screen.debug()
 
     expect(screen.getByText(/Godziny otwarcia/)).toBeInTheDocument();
 
