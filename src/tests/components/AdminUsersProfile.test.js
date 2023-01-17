@@ -38,8 +38,5 @@ describe('AdminUserProfile', () => {
   //       </MemoryRouter>
   //       )
   //   })
-
-  //   screen.debug()
   // });
-
 });

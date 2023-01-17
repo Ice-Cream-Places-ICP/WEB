@@ -7,13 +7,13 @@ export const mockedShop = {
     streetName: 'streetName: test 1',
     streetNumber: 'streetNumber test 1',
   },
-  openingHours: { 
-    weekDay: 'weekDay test 1',
-    startHour: 'startHour test 1',
-    startMinute: 'startMinute test 1',
-    endHour: 'endHour test 1',
-    endMinute: 'endMinute test 1',
-  },
+  openingHours: [{ 
+    weekDay: '1',
+    startHour: '10',
+    startMinute: '30',
+    endHour: '23',
+    endMinute: '00',
+  }],
   flavors: [
     { name: 'flavor: test 1' }
   ], 
