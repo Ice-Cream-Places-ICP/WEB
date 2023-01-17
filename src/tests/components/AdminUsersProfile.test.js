@@ -25,18 +25,4 @@ describe('AdminUserProfile', () => {
     expect(screen.getByTestId(/color-ring-svg/)).toBeInTheDocument();
   });
 
-  // TODO fix this test: useParams got {} instead of { id: 1 }
-  // it('render AdminsUserProfile component on route users/1 ', async () => {
-  //   await act(async () => {
-  //     const mockedUser = {
-  //       name: 'test'
-  //     }
-  //     axios.get.mockResolvedValueOnce(getMockedResponse(mockedUser));
-  //     await render(
-  //       <MemoryRouter initialEntries={["/users/1"]}>
-  //         <AdminUserProfile />
-  //       </MemoryRouter>
-  //       )
-  //   })
-  // });
 });

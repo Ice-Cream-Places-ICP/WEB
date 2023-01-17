@@ -36,7 +36,5 @@ describe('AdminShops', () => {
       await userEvent.type(searchButton, '1')
     })
 
-    // TODO
-    // expect(screen.getByText(/name: test 1/)).toBeInTheDocument();
   }); 
 });

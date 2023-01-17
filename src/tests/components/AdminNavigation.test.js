@@ -27,6 +27,5 @@ describe('AdminNavigation', () => {
     expect(screen.queryByText(/Lodziarnie/)).toBeInTheDocument();
     expect(screen.queryByText(/Użytkownicy/)).toBeInTheDocument();
 
-    // TODO: click link and check if url match
   })
 })

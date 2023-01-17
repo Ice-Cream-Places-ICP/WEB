@@ -22,20 +22,4 @@ describe('AdminUsers', () => {
     expect(screen.getByText(/Błąd tokena autoryzacji/)).toBeInTheDocument();
   });
   
-  // TODO
-  // expect(screen.getByText(/name: test 1/)).toBeInTheDocument();
-  // it('render AdminUsers component with mockedShop: test 1', async () => {
-  //   await act(async () => {
-  //     axios.get.mockResolvedValueOnce(getMockedResponse(true, [mockedShop]));
-  //     await render(<AdminUsers />)
-  //   })
-
-  //   const searchButton = screen.getByLabelText(/Szukaj/)
-  //   expect(searchButton).toBeInTheDocument();
-
-  //   await act(async () => {
-  //     await userEvent.type(searchButton, '1')
-  //   })
-
-  // }); 
 });
