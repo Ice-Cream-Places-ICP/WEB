@@ -1,6 +1,24 @@
 import axios from "axios";
-import { baseUrl } from "./api";
+import { useAxios, baseUrl } from "./axios";
 import { useAuthHeader } from "./useAuthHeader";
+
+export const RemoveNotification = async (notifiId) => {
+  const api = useAxios();
+  const authHeader = useAuthHeader();
+
+  if (!authHeader) return { message: "Błąd tokena autoryzacji" };
+
+  return await api
+    .delete(`users/notifications/${notifiId}`, authHeader)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error.response.data;
+    });
+};
 
 export const GetAllUsers = async () => {
   const authHeader = useAuthHeader();

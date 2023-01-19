@@ -13,6 +13,8 @@ import { CiCircleRemove } from "react-icons/ci";
 import { useNotification } from "../context/NotificationContext";
 import { useUser } from "../context/UserContext";
 import Loading from "./Loading";
+import NotificationShopInvitation from './NotificationShopInvitation'
+import NotificationShopUpdate from './NotificationShopUpdate'
 
 const ProfileNotification = () => {
   const userContext = useUser();

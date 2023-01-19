@@ -1,6 +1,22 @@
 import axios from "axios";
-import { baseUrl } from "./api";
+import { useAxios, baseUrl } from "./axios";
 import { useAuthHeader } from "./useAuthHeader";
+
+export const FavoriteShop = async (shopId) => {
+  const api = useAxios();
+  const header = useAuthHeader();
+
+  return await api
+    .post(`users/favorite-shops/${shopId}`, {}, header)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error.response.data;
+    });
+};
 
 export const GetShops = async () => {
   return await axios
@@ -62,12 +78,11 @@ export const UpdateShopById = async (shopId, shop) => {
 
 export const UpdateShopFlavorsById = async (shopId, flavors) => {
   const authHeader = useAuthHeader();
-  const api = useAxios();
 
   if (!authHeader) return { message: "Błąd tokena autoryzacji" };
 
-  return await api
-    .patch(`shops/${shopId}/flavors`, flavors, authHeader)
+  return await axios
+    .patch(`${baseUrl}/shops/${shopId}/flavors`, flavors, authHeader)
     .then((response) => {
       console.log(response.data);
       return response.data;

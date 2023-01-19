@@ -19,20 +19,22 @@ const NotificationShopInvitation = ({ notifi }) => {
   const handleAccept = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const acceptData = await AcceptIvitation(notifi._id);
-    if (acceptData.status) {
-      await updateUser();
-    }
+    // TODO: Implement AcceptIvitation
+    // const acceptData = await AcceptIvitation(notifi._id);
+    // if (acceptData.status) {
+    //   await updateUser();
+    // }
     setLoading(false);
   };
 
   const handleDecline = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const declineData = await DeclineIvitation(notifi._id);
-    if (declineData.status) {
-      await updateUser();
-    }
+    // TODO: Implement DeclineIvitation
+    // const declineData = await DeclineIvitation(notifi._id);
+    // if (declineData.status) {
+    //   await updateUser();
+    // }
     setLoading(false);
   };
 

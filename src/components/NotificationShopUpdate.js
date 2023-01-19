@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUser } from "../context/UserContext";
-import { GetUser, RemoveNotification } from "../services/user";
+import { GetUser } from "../services/user";
 import { IoClose } from "react-icons/io5";
 import { Button, IconButton, Typography } from "@mui/material";
 import Loading from "./Loading";
@@ -28,10 +28,11 @@ const NotificationShopUpdate = ({ notifi }) => {
   const handleRemove = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const removeData = await RemoveNotification(notifi._id);
-    if (removeData.status) {
-      await updateUser();
-    }
+    // TODO: Implement RemoveNotification
+    // const removeData = await RemoveNotification(notifi._id);
+    // if (removeData.status) {
+    //   await updateUser();
+    // }
     setLoading(false);
   };
 

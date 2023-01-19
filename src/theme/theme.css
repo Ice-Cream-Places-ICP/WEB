@@ -145,7 +145,7 @@ body.dark-theme .card-profile {
 
 .card {
   border-radius: 0.5rem !important;
-  margin: 0.25rem;
+  margin: 1rem;
   box-shadow: 0px 0px 25px -10px var(--primaryLight) !important;
 }
 

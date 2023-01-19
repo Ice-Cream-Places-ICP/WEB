@@ -87,13 +87,13 @@ const Shop = () => {
   const favoriteShopButton = () => {
     if (userContext.user.favoriteShops.includes(params.id)) {
       return (
-        <IconButton color="error" onClick={handleFavorite}>
+        <IconButton color="error">
           <HiHeart />
         </IconButton>
       );
     }
     return (
-      <IconButton onClick={handleFavorite}>
+      <IconButton>
         <HiOutlineHeart />
       </IconButton>
     );
